@@ -13,6 +13,5 @@ namespace ManagementPlus.Models
         public DateTime HiringDate { get; set; }
         public ProvinceEnum Province { get; set; }
         public bool IsActive { get; set; }
-
     }
 }
