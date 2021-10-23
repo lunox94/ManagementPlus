@@ -1,0 +1,60 @@
+﻿@page
+@model ManagementPlus.Pages.IndividualContributors.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>IndividualContributor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IndividualContributor.Id" />
+            <div class="form-group">
+                <label asp-for="IndividualContributor.FullName" class="control-label"></label>
+                <input asp-for="IndividualContributor.FullName" class="form-control" />
+                <span asp-validation-for="IndividualContributor.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndividualContributor.Level" class="control-label"></label>
+                <input asp-for="IndividualContributor.Level" class="form-control" />
+                <span asp-validation-for="IndividualContributor.Level" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndividualContributor.BaseSalary" class="control-label"></label>
+                <input asp-for="IndividualContributor.BaseSalary" class="form-control" />
+                <span asp-validation-for="IndividualContributor.BaseSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndividualContributor.HiringDate" class="control-label"></label>
+                <input asp-for="IndividualContributor.HiringDate" class="form-control" />
+                <span asp-validation-for="IndividualContributor.HiringDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IndividualContributor.Province" class="control-label"></label>
+                <select asp-for="IndividualContributor.Province" class="form-control"></select>
+                <span asp-validation-for="IndividualContributor.Province" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IndividualContributor.IsActive" /> @Html.DisplayNameFor(model => model.IndividualContributor.IsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
