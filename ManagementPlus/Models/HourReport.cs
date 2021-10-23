@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ManagementPlus.Models
 {
-    public class Report
+    public class HourReport
     {
         public Guid Id { get; set; }
         public Guid IndividualContributorId { get; set; }

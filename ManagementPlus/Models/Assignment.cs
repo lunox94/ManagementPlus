@@ -16,6 +16,6 @@ namespace ManagementPlus.Models
 
         public IndividualContributor IndividualContributor { get; set; }
         public Project Project { get; set; }
-        public List<Report> Reports { get; set; }
+        public List<HourReport> HourReports { get; set; }
     }
 }
