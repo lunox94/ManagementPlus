@@ -18,7 +18,7 @@ namespace ManagementPlus.Models
         public DateTime HiringDate { get; set; }
         public ProvinceEnum Province { get; set; }
         [Display(Name = "Is Active")]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         public List<Assignment> Assignments { get; set; }
     }
