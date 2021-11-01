@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ManagementPlus.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,7 @@ namespace ManagementPlus.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Overview = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    HoursLimit = table.Column<TimeSpan>(type: "time", nullable: false)
+                    HoursLimit = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {

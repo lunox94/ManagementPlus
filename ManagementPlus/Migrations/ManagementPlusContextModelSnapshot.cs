@@ -115,8 +115,8 @@ namespace ManagementPlus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("HoursLimit")
-                        .HasColumnType("time");
+                    b.Property<long>("HoursLimit")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

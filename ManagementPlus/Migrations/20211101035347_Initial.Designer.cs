@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManagementPlus.Migrations
 {
     [DbContext(typeof(ManagementPlusContext))]
-    [Migration("20211023044452_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20211101035347_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,8 +117,8 @@ namespace ManagementPlus.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("HoursLimit")
-                        .HasColumnType("time");
+                    b.Property<long>("HoursLimit")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

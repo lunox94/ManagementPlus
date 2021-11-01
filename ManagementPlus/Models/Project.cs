@@ -11,7 +11,7 @@ namespace ManagementPlus.Models
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
         public string Overview { get; set; }
-        public TimeSpan HoursLimit { get; set; }
+        public long HoursLimit { get; set; }
 
         public List<Assignment> Assignments { get; set; }
     }
