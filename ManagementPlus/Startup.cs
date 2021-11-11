@@ -29,6 +29,8 @@ namespace ManagementPlus
 
             services.AddDbContext<ManagementPlusContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ManagementPlusContext")));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ManagementPlus.Data;
 using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
+using AutoMapper;
 
 namespace ManagementPlus.Pages.Projects
 {
     public class CreateModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public CreateModel(ManagementPlus.Data.ManagementPlusContext context)
+        public CreateModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public IActionResult OnGet()
@@ -25,7 +29,7 @@ namespace ManagementPlus.Pages.Projects
         }
 
         [BindProperty]
-        public Project Project { get; set; }
+        public ProjectToCreateVM Project { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +39,9 @@ namespace ManagementPlus.Pages.Projects
                 return Page();
             }
 
-            _context.Projects.Add(Project);
+            var project = _mapper.Map<Project>(Project);
+
+            _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

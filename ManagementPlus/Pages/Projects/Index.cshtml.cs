@@ -7,23 +7,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ManagementPlus.Data;
 using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
+using AutoMapper;
 
 namespace ManagementPlus.Pages.Projects
 {
     public class IndexModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public IndexModel(ManagementPlus.Data.ManagementPlusContext context)
+        public IndexModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public IList<Project> Project { get;set; }
+        public IList<ProjectVM> Projects { get;set; }
 
         public async Task OnGetAsync()
         {
-            Project = await _context.Projects.ToListAsync();
+            Projects = _mapper.Map<IList<ProjectVM>>(await _context.Projects.ToListAsync());
         }
     }
 }
