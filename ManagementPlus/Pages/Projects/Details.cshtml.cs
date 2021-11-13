@@ -1,25 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ManagementPlus.Data;
-using ManagementPlus.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace ManagementPlus.Pages.Projects
 {
     public class DetailsModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public DetailsModel(ManagementPlus.Data.ManagementPlusContext context)
+        public DetailsModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public Project Project { get; set; }
+        public ProjectVM Project { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -28,12 +29,15 @@ namespace ManagementPlus.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);
+            var project = await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);            
 
-            if (Project == null)
+            if (project == null)
             {
                 return NotFound();
             }
+
+            Project = _mapper.Map<ProjectVM>(project);
+
             return Page();
         }
     }
