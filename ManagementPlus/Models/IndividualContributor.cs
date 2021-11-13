@@ -21,5 +21,19 @@ namespace ManagementPlus.Models
         public bool IsActive { get; set; } = true;
 
         public List<Assignment> Assignments { get; set; }
+
+        public static string GetBandFromLevel(int level)
+        {
+            return level switch
+            {
+                1 => "STAFF",
+                2 => "INTERN",
+                3 or 4 => "SDE",
+                5 or 6 => "SDE II",
+                7 or 8 => "SENIOR SDE",
+                9 => "PRINCIPAL SDE",
+                _ => throw new Exception("Could not get band name from level."),
+            } + $" (L{level})";
+        }
     }
 }

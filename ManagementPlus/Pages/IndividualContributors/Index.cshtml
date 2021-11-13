@@ -14,28 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].FullName)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].Level)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].Level)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].BaseSalary)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].BaseSalary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].HiringDate)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].HiringDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].Province)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].Province)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IndividualContributor[0].IsActive)
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].IsActive)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.IndividualContributor) {
+@foreach (var item in Model.IndividualContributors) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
