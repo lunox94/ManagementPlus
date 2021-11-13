@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace ManagementPlus.ViewModels
 {
     public class ProjectToCreateVM
-    {
+    {        
         public string Name { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Start Date")]

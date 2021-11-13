@@ -22,6 +22,16 @@ namespace ManagementPlus.Profiles
                 dest => dest.HoursLimit,
                 opt => opt.MapFrom(src => src.HoursLimit.ToStringFromTimeSpanTicks())
             );
+
+            CreateMap<ProjectToEditVM, Project>().ForMember(
+                dest => dest.HoursLimit,
+                opt => opt.MapFrom(src => src.HoursLimit.ToTimeSpanTicks())
+            );
+
+            CreateMap<Project, ProjectToEditVM>().ForMember(
+                dest => dest.HoursLimit,
+                opt => opt.MapFrom(src => src.HoursLimit.ToStringFromTimeSpanTicks())
+            );
         }
     }
 }

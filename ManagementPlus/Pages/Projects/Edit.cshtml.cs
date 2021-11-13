@@ -1,27 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
 using ManagementPlus.Data;
 using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ManagementPlus.Pages.Projects
 {
     public class EditModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public EditModel(ManagementPlus.Data.ManagementPlusContext context)
+        public EditModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public Project Project { get; set; }
+        public ProjectToEditVM Project { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -30,12 +32,15 @@ namespace ManagementPlus.Pages.Projects
                 return NotFound();
             }
 
-            Project = await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);
+            var project = await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Project == null)
+            if (project == null)
             {
                 return NotFound();
             }
+
+            Project = _mapper.Map<ProjectToEditVM>(project);
+
             return Page();
         }
 
@@ -48,7 +53,9 @@ namespace ManagementPlus.Pages.Projects
                 return Page();
             }
 
-            _context.Attach(Project).State = EntityState.Modified;
+            var project = _mapper.Map<Project>(Project);
+
+            _context.Attach(project).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +63,7 @@ namespace ManagementPlus.Pages.Projects
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(Project.Id))
+                if (!ProjectExists(project.Id))
                 {
                     return NotFound();
                 }

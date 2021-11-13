@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ManagementPlus.ViewModels
 {
-    public class ProjectVM
+    public class ProjectToEditVM
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -12,6 +12,7 @@ namespace ManagementPlus.ViewModels
         public DateTime StartDate { get; set; }
         public string Overview { get; set; }
         [Required]
+        [RegularExpression(@"^([1-9][0-9]*)(:[0-5][0-9])?$")]
         [Display(Name = "Hours Limit")]
         public string HoursLimit { get; set; }
     }
