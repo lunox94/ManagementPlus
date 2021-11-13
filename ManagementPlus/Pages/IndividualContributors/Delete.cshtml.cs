@@ -1,4 +1,6 @@
-﻿using ManagementPlus.Models;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +11,17 @@ namespace ManagementPlus.Pages.IndividualContributors
 {
     public class DeleteModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public DeleteModel(ManagementPlus.Data.ManagementPlusContext context)
+        public DeleteModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public IndividualContributor IndividualContributor { get; set; }
+        public IndividualContributorVM IndividualContributor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -26,12 +30,15 @@ namespace ManagementPlus.Pages.IndividualContributors
                 return NotFound();
             }
 
-            IndividualContributor = await _context.IndividualContributors.FirstOrDefaultAsync(m => m.Id == id);
+            var individualContributor = await _context.IndividualContributors.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (IndividualContributor == null)
+            if (individualContributor == null)
             {
                 return NotFound();
             }
+
+            IndividualContributor = _mapper.Map<IndividualContributorVM>(individualContributor);
+
             return Page();
         }
 
@@ -42,11 +49,11 @@ namespace ManagementPlus.Pages.IndividualContributors
                 return NotFound();
             }
 
-            IndividualContributor = await _context.IndividualContributors.FindAsync(id);
+            var individualContributor = await _context.IndividualContributors.FindAsync(id);
 
-            if (IndividualContributor != null)
+            if (individualContributor != null)
             {
-                _context.IndividualContributors.Remove(IndividualContributor);
+                _context.IndividualContributors.Remove(individualContributor);
                 await _context.SaveChangesAsync();
             }
 
