@@ -10,6 +10,10 @@ namespace ManagementPlus.Data
             modelBuilder.Entity<IndividualContributor>()
                 .ToTable("IndividualContributor")
                 .HasKey(ic => ic.Id);
+
+            modelBuilder.Entity<IndividualContributor>()
+                .Property(ic => ic.FullName)
+                .IsRequired();
         }
     }
 }

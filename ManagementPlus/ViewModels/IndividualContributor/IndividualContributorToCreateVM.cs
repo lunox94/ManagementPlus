@@ -11,7 +11,6 @@ namespace ManagementPlus.ViewModels
         public string FullName { get; set; }
         public int Level { get; set; }
         [Display(Name = "Base Salary")]
-        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public int BaseSalary { get; set; }
         [Display(Name = "Hiring Date")]
         [DataType(DataType.Date)]

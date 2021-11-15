@@ -10,6 +10,10 @@ namespace ManagementPlus.Data
             modelBuilder.Entity<Project>()
                 .ToTable("Project")
                 .HasKey(p => p.Id);
+
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Name)
+                .IsRequired();
         }
     }
 }
