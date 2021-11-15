@@ -1,4 +1,7 @@
-﻿using ManagementPlus.Models;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
@@ -7,11 +10,13 @@ namespace ManagementPlus.Pages.IndividualContributors
 {
     public class CreateModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public CreateModel(ManagementPlus.Data.ManagementPlusContext context)
+        public CreateModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public IActionResult OnGet()
@@ -20,7 +25,7 @@ namespace ManagementPlus.Pages.IndividualContributors
         }
 
         [BindProperty]
-        public IndividualContributor IndividualContributor { get; set; }
+        public IndividualContributorToCreateVM IndividualContributor { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -30,7 +35,9 @@ namespace ManagementPlus.Pages.IndividualContributors
                 return Page();
             }
 
-            _context.IndividualContributors.Add(IndividualContributor);
+            var individualContributor = _mapper.Map<IndividualContributor>(IndividualContributor);
+
+            _context.IndividualContributors.Add(individualContributor);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

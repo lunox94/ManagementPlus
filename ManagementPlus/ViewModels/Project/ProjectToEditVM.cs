@@ -6,6 +6,7 @@ namespace ManagementPlus.ViewModels
     public class ProjectToEditVM
     {
         public Guid Id { get; set; }
+        [Required]
         public string Name { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Start Date")]

@@ -16,6 +16,8 @@ namespace ManagementPlus.Profiles
                 dest => dest.Level,
                 opt => opt.MapFrom(src => IndividualContributor.GetBandFromLevel(src.Level))
             );
+
+            CreateMap<IndividualContributorToCreateVM, IndividualContributor>();
         }
     }
 }
