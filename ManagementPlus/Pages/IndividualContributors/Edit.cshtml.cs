@@ -1,4 +1,7 @@
-﻿using ManagementPlus.Models;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,15 +13,17 @@ namespace ManagementPlus.Pages.IndividualContributors
 {
     public class EditModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
+        private readonly IMapper _mapper;
 
-        public EditModel(ManagementPlus.Data.ManagementPlusContext context)
+        public EditModel(ManagementPlusContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public IndividualContributor IndividualContributor { get; set; }
+        public IndividualContributorToEditVM IndividualContributor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -27,12 +32,15 @@ namespace ManagementPlus.Pages.IndividualContributors
                 return NotFound();
             }
 
-            IndividualContributor = await _context.IndividualContributors.FirstOrDefaultAsync(m => m.Id == id);
+            var individualContributor = await _context.IndividualContributors.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (IndividualContributor == null)
+            if (individualContributor == null)
             {
                 return NotFound();
             }
+
+            IndividualContributor = _mapper.Map<IndividualContributorToEditVM>(individualContributor);
+
             return Page();
         }
 
@@ -45,7 +53,9 @@ namespace ManagementPlus.Pages.IndividualContributors
                 return Page();
             }
 
-            _context.Attach(IndividualContributor).State = EntityState.Modified;
+            var individualContributor = _mapper.Map<IndividualContributor>(IndividualContributor);
+
+            _context.Attach(individualContributor).State = EntityState.Modified;
 
             try
             {
@@ -53,7 +63,7 @@ namespace ManagementPlus.Pages.IndividualContributors
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!IndividualContributorExists(IndividualContributor.Id))
+                if (!IndividualContributorExists(individualContributor.Id))
                 {
                     return NotFound();
                 }

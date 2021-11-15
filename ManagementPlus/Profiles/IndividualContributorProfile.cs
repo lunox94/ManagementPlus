@@ -18,6 +18,10 @@ namespace ManagementPlus.Profiles
             );
 
             CreateMap<IndividualContributorToCreateVM, IndividualContributor>();
+
+            CreateMap<IndividualContributor, IndividualContributorToEditVM>();
+
+            CreateMap<IndividualContributorToEditVM, IndividualContributor>();
         }
     }
 }
