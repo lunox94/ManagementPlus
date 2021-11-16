@@ -1,0 +1,60 @@
+﻿@page
+@model ManagementPlus.Pages.Assignments.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].DateOfFirstAssignment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].DateOfLastAssignment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].IndividualContributor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Assignment[0].Project)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Assignment) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfFirstAssignment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfLastAssignment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IndividualContributor.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
