@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ManagementPlus.Data;
-using ManagementPlus.Models;
 using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;

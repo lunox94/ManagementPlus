@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ManagementPlus.Data;
-using ManagementPlus.Models;
-using ManagementPlus.ViewModels;
-using AutoMapper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ManagementPlus.Pages.Projects
 {
