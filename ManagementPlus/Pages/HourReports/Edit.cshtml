@@ -1,0 +1,70 @@
+﻿@page
+@model ManagementPlus.Pages.HourReports.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>HourReport</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="HourReport.Id" />
+            <div class="form-group">
+                <label asp-for="HourReport.IndividualContributorId" class="control-label"></label>
+                <select asp-for="HourReport.IndividualContributorId" class="form-control" asp-items="ViewBag.IndividualContributorId"></select>
+                <span asp-validation-for="HourReport.IndividualContributorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.ProjectId" class="control-label"></label>
+                <select asp-for="HourReport.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
+                <span asp-validation-for="HourReport.ProjectId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.DateOfIssue" class="control-label"></label>
+                <input asp-for="HourReport.DateOfIssue" class="form-control" />
+                <span asp-validation-for="HourReport.DateOfIssue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.ReportedTime" class="control-label"></label>
+                <input asp-for="HourReport.ReportedTime" class="form-control" />
+                <span asp-validation-for="HourReport.ReportedTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.LinkToTicketManager" class="control-label"></label>
+                <input asp-for="HourReport.LinkToTicketManager" class="form-control" />
+                <span asp-validation-for="HourReport.LinkToTicketManager" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.Description" class="control-label"></label>
+                <input asp-for="HourReport.Description" class="form-control" />
+                <span asp-validation-for="HourReport.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.DiscountTime" class="control-label"></label>
+                <input asp-for="HourReport.DiscountTime" class="form-control" />
+                <span asp-validation-for="HourReport.DiscountTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HourReport.DiscountReason" class="control-label"></label>
+                <input asp-for="HourReport.DiscountReason" class="form-control" />
+                <span asp-validation-for="HourReport.DiscountReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
