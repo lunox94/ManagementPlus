@@ -41,3 +41,62 @@
     <a asp-page="./Edit" asp-route-id="@Model.Project.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>
+
+<hr />
+<h1>Individual Contributors</h1>
+<p>
+    <a asp-page="../Assignments/Create">Assign New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].BaseSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].HiringDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].Province)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IndividualContributors[0].IsActive)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.IndividualContributors)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BaseSalary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HiringDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Province)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <a asp-page="../IndividualContributors/Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

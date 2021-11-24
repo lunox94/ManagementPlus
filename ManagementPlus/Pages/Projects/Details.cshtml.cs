@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ManagementPlus.Pages.Projects
@@ -21,6 +23,7 @@ namespace ManagementPlus.Pages.Projects
         }
 
         public ProjectVM Project { get; set; }
+        public IList<IndividualContributorVM> IndividualContributors { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -29,14 +32,21 @@ namespace ManagementPlus.Pages.Projects
                 return NotFound();
             }
 
-            var project = await _context.Projects.FirstOrDefaultAsync(m => m.Id == id);            
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                .ThenInclude(a => a.IndividualContributor)
+                .FirstOrDefaultAsync(p => p.Id == id);            
 
             if (project == null)
             {
                 return NotFound();
             }
 
+            var individualContributors = project.Assignments.Select(a => a.IndividualContributor);
+
             Project = _mapper.Map<ProjectVM>(project);
+
+            IndividualContributors = _mapper.Map<IList<IndividualContributorVM>>(individualContributors);
 
             return Page();
         }
