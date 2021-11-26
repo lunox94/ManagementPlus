@@ -95,7 +95,13 @@
                 </td>
                 <td>
                     <a asp-page="../IndividualContributors/Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="../HourReports/Index" asp-route-projectId="@Model.Project.Id" asp-route-individualContributorId="@item.Id">Report</a>
+                    <a 
+                       asp-page="../HourReports/Index" 
+                       asp-route-year="@DateTime.Now.Year"
+                       asp-route-month="@DateTime.Now.Month"
+                       asp-route-day="@DateTime.Now.Day"
+                       asp-route-projectId="@Model.Project.Id" 
+                       asp-route-individualContributorId="@item.Id">Report</a>
                 </td>
             </tr>
         }

@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{year:int}/{month:int}/{day:int}"
 @model ManagementPlus.Pages.HourReports.IndexModel
 
 @{
@@ -8,7 +8,7 @@
 <h1>Hour Report</h1>
 
 <div>
-    <h4>@DateTime.Now.ToLongDateString()</h4>
+    <h4>@Model.ReportDate.ToLongDateString()</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-3">
@@ -22,6 +22,21 @@
         </dt>
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.IndividualContributor.FullName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ReportDate)
+        </dt>
+        <dd class="col-sm-9">
+            <form method="post" class="row">
+                <input type="hidden" asp-for="IndividualContributor.Id" />
+                <input type="hidden" asp-for="Project.Id" />
+                <div class="col-sm-3">
+                    <input asp-for="@Model.ReportDate" class="form-control" />
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                </div>
+            </form>
         </dd>
     </dl>
 </div>
@@ -54,32 +69,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.HourReport) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfIssue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReportedTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LinkToTicketManager)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountReason)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.HourReport)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfIssue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportedTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinkToTicketManager)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountReason)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
