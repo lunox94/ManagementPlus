@@ -5,7 +5,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Hour Report</h1>
+
+<div>
+    <h4>@DateTime.Now.ToLongDateString()</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Project @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Individual Contributor @Html.DisplayNameFor(model => model.IndividualContributor.FullName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndividualContributor.FullName)
+        </dd>
+    </dl>
+</div>
 
 <p>
     <a asp-page="Create">Create New</a>

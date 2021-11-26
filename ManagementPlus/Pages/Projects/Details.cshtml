@@ -94,7 +94,8 @@
                     @Html.DisplayFor(modelItem => item.IsActive)
                 </td>
                 <td>
-                    <a asp-page="../IndividualContributors/Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-page="../IndividualContributors/Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="../HourReports/Index" asp-route-projectId="@Model.Project.Id" asp-route-individualContributorId="@item.Id">Report</a>
                 </td>
             </tr>
         }
