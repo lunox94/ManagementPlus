@@ -68,10 +68,18 @@ namespace ManagementPlus.Pages.HourReports
                 return Page();
             }
 
-            //_context.HourReports.Add(HourReport);
+            var hourReport = _mapper.Map<HourReport>(HourReport);
+            _context.HourReports.Add(hourReport);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", routeValues: new
+            {
+                projectId = HourReport.ProjectId,
+                individualContributorId = HourReport.IndividualContributorId,
+                year = HourReport.DateOfIssue.Year,
+                month = HourReport.DateOfIssue.Month,
+                day = HourReport.DateOfIssue.Day
+            });
         }
     }
 }
