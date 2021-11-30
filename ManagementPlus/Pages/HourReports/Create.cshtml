@@ -1,13 +1,30 @@
-﻿@page
+﻿@page "Project/{projectId:guid}/IndividualContributor/{individualContributorId:guid}/Date/{year:int}/{month:int}/{day:int}"
 @model ManagementPlus.Pages.HourReports.CreateModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Report Work</h1>
 
-<h4>HourReport</h4>
+<div>
+    <h4>@Model.ReportDate.ToLongDateString()</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Project @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Individual Contributor @Html.DisplayNameFor(model => model.IndividualContributor.FullName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndividualContributor.FullName)
+        </dd>
+    </dl>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,11 +32,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="HourReport.IndividualContributorId" class="control-label"></label>
-                <select asp-for="HourReport.IndividualContributorId" class ="form-control" asp-items="ViewBag.IndividualContributorId"></select>
+                <select asp-for="HourReport.IndividualContributorId" class="form-control" asp-items="ViewBag.IndividualContributorId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="HourReport.ProjectId" class="control-label"></label>
-                <select asp-for="HourReport.ProjectId" class ="form-control" asp-items="ViewBag.ProjectId"></select>
+                <select asp-for="HourReport.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="HourReport.DateOfIssue" class="control-label"></label>

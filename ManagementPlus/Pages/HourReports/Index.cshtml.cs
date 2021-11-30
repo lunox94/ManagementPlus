@@ -25,9 +25,7 @@ namespace ManagementPlus.Pages.HourReports
         }
 
         public IList<HourReport> HourReport { get;set; }
-        [BindProperty]
         public ProjectVM Project { get; set; }
-        [BindProperty]
         public IndividualContributorVM IndividualContributor { get; set; }
         [BindProperty]
         [Display(Name = "Report Date")]
@@ -40,13 +38,8 @@ namespace ManagementPlus.Pages.HourReports
         [BindProperty(SupportsGet = true)]
         public int Day { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? projectId, Guid? individualContributorId)
+        public async Task<IActionResult> OnGetAsync(Guid projectId, Guid individualContributorId)
         {
-            if (projectId == null || individualContributorId == null)
-            {
-                return NotFound();
-            }
-
             var project = await _context.Projects.FirstOrDefaultAsync(p => p.Id == projectId);
             var individualContributor = await _context.IndividualContributors.FirstOrDefaultAsync(ic => ic.Id == individualContributorId);
 

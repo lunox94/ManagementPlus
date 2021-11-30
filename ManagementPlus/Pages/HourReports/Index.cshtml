@@ -1,4 +1,4 @@
-﻿@page "{year:int}/{month:int}/{day:int}"
+﻿@page "Project/{projectId:guid}/IndividualContributor/{individualContributorId:guid}/Date/{year:int}/{month:int}/{day:int}"
 @model ManagementPlus.Pages.HourReports.IndexModel
 
 @{
@@ -42,7 +42,12 @@
 </div>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create"
+       asp-route-year="@DateTime.Now.Year"
+       asp-route-month="@DateTime.Now.Month"
+       asp-route-day="@DateTime.Now.Day"
+       asp-route-projectId="@Model.Project.Id"
+       asp-route-individualContributorId="@Model.IndividualContributor.Id">Create New</a>
 </p>
 <table class="table">
     <thead>
