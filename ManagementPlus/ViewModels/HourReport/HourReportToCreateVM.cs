@@ -16,6 +16,7 @@ namespace ManagementPlus.ViewModels
         [Display(Name = "Link To Ticket Manager")]
         public string LinkToTicketManager { get; set; }
         public string Description { get; set; }
+        [Required]
         [RegularExpression(@"^([1-9][0-9]*)(:[0-5][0-9])?$")]
         [Display(Name = "Discount Time")]
         public string DiscountTime { get; set; }

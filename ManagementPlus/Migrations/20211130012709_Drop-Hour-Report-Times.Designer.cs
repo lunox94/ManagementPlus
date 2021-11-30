@@ -4,14 +4,16 @@ using ManagementPlus.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ManagementPlus.Migrations
 {
     [DbContext(typeof(ManagementPlusContext))]
-    partial class ManagementPlusContextModelSnapshot : ModelSnapshot
+    [Migration("20211130012709_Drop-Hour-Report-Times")]
+    partial class DropHourReportTimes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace ManagementPlus.Migrations
                     b.Property<string>("DiscountReason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("DiscountTime")
-                        .HasColumnType("bigint");
-
                     b.Property<Guid>("IndividualContributorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -69,9 +68,6 @@ namespace ManagementPlus.Migrations
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<long>("ReportedTime")
-                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
