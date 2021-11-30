@@ -26,13 +26,9 @@ namespace ManagementPlus.Pages.HourReports
         }
 
         [BindProperty]
-        public HourReport HourReport { get; set; }
+        public HourReportToCreateVM HourReport { get; set; }
         public ProjectVM Project { get; set; }
         public IndividualContributorVM IndividualContributor { get; set; }
-        [BindProperty]
-        [Display(Name = "Report Date")]
-        [DataType(DataType.Date)]
-        public DateTime ReportDate { get; set; }
         [BindProperty(SupportsGet = true)]
         public int Year { get; set; }
         [BindProperty(SupportsGet = true)]
@@ -53,7 +49,13 @@ namespace ManagementPlus.Pages.HourReports
             Project = _mapper.Map<ProjectVM>(project);
             IndividualContributor = _mapper.Map<IndividualContributorVM>(individualContributor);
 
-            ReportDate = new DateTime(year: Year, month: Month, day: Day);
+            //Pre-fill data in hour report property
+            HourReport = new HourReportToCreateVM
+            {
+                IndividualContributorId = individualContributorId,
+                ProjectId = projectId,
+                DateOfIssue = new DateTime(year: Year, month: Month, day: Day)
+            };
 
             return Page();
         }
@@ -66,7 +68,7 @@ namespace ManagementPlus.Pages.HourReports
                 return Page();
             }
 
-            _context.HourReports.Add(HourReport);
+            //_context.HourReports.Add(HourReport);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

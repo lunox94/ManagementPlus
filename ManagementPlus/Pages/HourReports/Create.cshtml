@@ -8,7 +8,7 @@
 <h1>Report Work</h1>
 
 <div>
-    <h4>@Model.ReportDate.ToLongDateString()</h4>
+    <h4>@Model.HourReport.DateOfIssue.ToLongDateString()</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-3">
@@ -30,19 +30,9 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="HourReport.IndividualContributorId" class="control-label"></label>
-                <select asp-for="HourReport.IndividualContributorId" class="form-control" asp-items="ViewBag.IndividualContributorId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="HourReport.ProjectId" class="control-label"></label>
-                <select asp-for="HourReport.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="HourReport.DateOfIssue" class="control-label"></label>
-                <input asp-for="HourReport.DateOfIssue" class="form-control" />
-                <span asp-validation-for="HourReport.DateOfIssue" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="HourReport.IndividualContributorId" />
+            <input type="hidden" asp-for="HourReport.ProjectId" />
+            <input type="hidden" asp-for="HourReport.DateOfIssue" />
             <div class="form-group">
                 <label asp-for="HourReport.ReportedTime" class="control-label"></label>
                 <input asp-for="HourReport.ReportedTime" class="form-control" />
