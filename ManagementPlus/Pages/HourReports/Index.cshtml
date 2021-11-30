@@ -31,7 +31,7 @@
                 <input type="hidden" asp-for="IndividualContributor.Id" />
                 <input type="hidden" asp-for="Project.Id" />
                 <div class="col-sm-3">
-                    <input asp-for="@Model.ReportDate" class="form-control" />
+                    <input asp-for="ReportDate" class="form-control" />
                 </div>
                 <div class="col-sm-2">
                     <input type="submit" value="Search" class="btn btn-primary" />
@@ -43,9 +43,9 @@
 
 <p>
     <a asp-page="Create"
-       asp-route-year="@DateTime.Now.Year"
-       asp-route-month="@DateTime.Now.Month"
-       asp-route-day="@DateTime.Now.Day"
+       asp-route-year="@Model.Year"
+       asp-route-month="@Model.Month"
+       asp-route-day="@Model.Day"
        asp-route-projectId="@Model.Project.Id"
        asp-route-individualContributorId="@Model.IndividualContributor.Id">Create New</a>
 </p>

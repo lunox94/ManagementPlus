@@ -25,7 +25,9 @@ namespace ManagementPlus.Pages.HourReports
         }
 
         public IList<HourReport> HourReport { get;set; }
+        [BindProperty]
         public ProjectVM Project { get; set; }
+        [BindProperty]
         public IndividualContributorVM IndividualContributor { get; set; }
         [BindProperty]
         [Display(Name = "Report Date")]

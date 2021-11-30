@@ -17,7 +17,7 @@ namespace ManagementPlus.ViewModels
         public string LinkToTicketManager { get; set; }
         public string Description { get; set; }
         [Required]
-        [RegularExpression(@"^([1-9][0-9]*)(:[0-5][0-9])?$")]
+        [RegularExpression(@"^([0-9][0-9]*)(:[0-5][0-9])?$")]
         [Display(Name = "Discount Time")]
         public string DiscountTime { get; set; }
         [Display(Name = "Discount Reason")]
