@@ -23,13 +23,8 @@ namespace ManagementPlus.Pages.HourReports
         [BindProperty]
         public HourReport HourReport { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             HourReport = await _context.HourReports
                 .Include(h => h.Assignment).FirstOrDefaultAsync(m => m.Id == id);
 
