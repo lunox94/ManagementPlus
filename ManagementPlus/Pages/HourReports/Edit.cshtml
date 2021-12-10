@@ -7,8 +7,22 @@
 
 <h1>Edit</h1>
 
-<h4>HourReport</h4>
+<h4>Hour Report</h4>
 <hr />
+<dl class="row">
+    <dt class="col-sm-3">
+        Project @Html.DisplayNameFor(model => model.Project.Name)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Project.Name)
+    </dd>
+    <dt class="col-sm-3">
+        Individual Contributor @Html.DisplayNameFor(model => model.IndividualContributor.FullName)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.IndividualContributor.FullName)
+    </dd>
+</dl>
 <div class="row">
     <div class="col-md-4">
         <form method="post">

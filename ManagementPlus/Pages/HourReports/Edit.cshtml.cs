@@ -8,30 +8,42 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ManagementPlus.Data;
 using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
+using AutoMapper;
 
 namespace ManagementPlus.Pages.HourReports
 {
     public class EditModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
 
-        public EditModel(ManagementPlus.Data.ManagementPlusContext context)
+        public EditModel(ManagementPlusContext context)
         {
             _context = context;
         }
 
         [BindProperty]
         public HourReport HourReport { get; set; }
+        public ProjectVM Project { get; set; }
+        public IndividualContributorVM IndividualContributor { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid id)
+        public async Task<IActionResult> OnGetAsync(Guid id, [FromServices] IMapper mapper)
         {
             HourReport = await _context.HourReports
-                .Include(h => h.Assignment).FirstOrDefaultAsync(m => m.Id == id);
+                .Include(h => h.Assignment)
+                .ThenInclude(a => a.Project)
+                .Include(h => h.Assignment)
+                .ThenInclude(a => a.IndividualContributor)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (HourReport == null)
             {
                 return NotFound();
             }
+
+            Project = mapper.Map<ProjectVM>(HourReport.Assignment.Project);
+            IndividualContributor = mapper.Map<IndividualContributorVM>(HourReport.Assignment.IndividualContributor);
+
            ViewData["IndividualContributorId"] = new SelectList(_context.Assignments, "IndividualContributorId", "IndividualContributorId");
             return Page();
         }
