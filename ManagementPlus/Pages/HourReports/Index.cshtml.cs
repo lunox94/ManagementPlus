@@ -24,7 +24,7 @@ namespace ManagementPlus.Pages.HourReports
             _mapper = mapper;
         }
 
-        public IList<HourReport> HourReport { get;set; }
+        public IList<HourReportVM> HourReports { get;set; }
         [BindProperty]
         public ProjectVM Project { get; set; }
         [BindProperty]
@@ -55,7 +55,7 @@ namespace ManagementPlus.Pages.HourReports
 
             ReportDate = new DateTime(year: Year, month: Month, day: Day);
 
-            HourReport = await _context.HourReports
+            var hourReports = await _context.HourReports
                 .Where
                 (
                     hr => hr.ProjectId == projectId
@@ -63,6 +63,8 @@ namespace ManagementPlus.Pages.HourReports
                     && hr.DateOfIssue == ReportDate
                 )
                 .ToListAsync();
+
+            HourReports = _mapper.Map<IList<HourReportVM>>(hourReports);
 
             return Page();
         }
