@@ -24,6 +24,22 @@ namespace ManagementPlus.Profiles
                 dest => dest.DiscountTime,
                 opt => opt.MapFrom(src => src.DiscountTime.ToTimeSpanTicks())
             );
+
+            CreateMap<HourReport, HourReportToEditVM>().ForMember(
+                dest => dest.ReportedTime,
+                opt => opt.MapFrom(src => src.ReportedTime.ToStringFromTimeSpanTicks())
+            ).ForMember(
+                dest => dest.DiscountTime,
+                opt => opt.MapFrom(src => src.DiscountTime.ToStringFromTimeSpanTicks())
+            );
+
+            CreateMap<HourReportToEditVM, HourReport>().ForMember(
+                dest => dest.ReportedTime,
+                opt => opt.MapFrom(src => src.ReportedTime.ToTimeSpanTicks())
+            ).ForMember(
+                dest => dest.DiscountTime,
+                opt => opt.MapFrom(src => src.DiscountTime.ToTimeSpanTicks())
+            );
         }
     }
 }

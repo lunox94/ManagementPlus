@@ -23,41 +23,42 @@ namespace ManagementPlus.Pages.HourReports
         }
 
         [BindProperty]
-        public HourReport HourReport { get; set; }
+        public HourReportToEditVM HourReport { get; set; }
         public ProjectVM Project { get; set; }
         public IndividualContributorVM IndividualContributor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid id, [FromServices] IMapper mapper)
         {
-            HourReport = await _context.HourReports
+            var hourReport = await _context.HourReports
                 .Include(h => h.Assignment)
                 .ThenInclude(a => a.Project)
                 .Include(h => h.Assignment)
                 .ThenInclude(a => a.IndividualContributor)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (HourReport == null)
+            if (hourReport == null)
             {
                 return NotFound();
             }
 
-            Project = mapper.Map<ProjectVM>(HourReport.Assignment.Project);
-            IndividualContributor = mapper.Map<IndividualContributorVM>(HourReport.Assignment.IndividualContributor);
+            HourReport = mapper.Map<HourReportToEditVM>(hourReport);
+            Project = mapper.Map<ProjectVM>(hourReport.Assignment.Project);
+            IndividualContributor = mapper.Map<IndividualContributorVM>(hourReport.Assignment.IndividualContributor);
 
-           ViewData["IndividualContributorId"] = new SelectList(_context.Assignments, "IndividualContributorId", "IndividualContributorId");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync([FromServices] IMapper mapper)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(HourReport).State = EntityState.Modified;
+            var hourReport = mapper.Map<HourReport>(HourReport);
+            _context.Attach(hourReport).State = EntityState.Modified;
 
             try
             {
@@ -75,7 +76,14 @@ namespace ManagementPlus.Pages.HourReports
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", routeValues: new
+            {
+                projectId = HourReport.ProjectId,
+                individualContributorId = HourReport.IndividualContributorId,
+                year = HourReport.DateOfIssue.Year,
+                month = HourReport.DateOfIssue.Month,
+                day = HourReport.DateOfIssue.Day
+            });
         }
 
         private bool HourReportExists(Guid id)

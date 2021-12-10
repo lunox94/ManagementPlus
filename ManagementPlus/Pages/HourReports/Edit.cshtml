@@ -28,16 +28,8 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="HourReport.Id" />
-            <div class="form-group">
-                <label asp-for="HourReport.IndividualContributorId" class="control-label"></label>
-                <select asp-for="HourReport.IndividualContributorId" class="form-control" asp-items="ViewBag.IndividualContributorId"></select>
-                <span asp-validation-for="HourReport.IndividualContributorId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HourReport.ProjectId" class="control-label"></label>
-                <select asp-for="HourReport.ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>
-                <span asp-validation-for="HourReport.ProjectId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="HourReport.ProjectId" />
+            <input type="hidden" asp-for="HourReport.IndividualContributorId" />
             <div class="form-group">
                 <label asp-for="HourReport.DateOfIssue" class="control-label"></label>
                 <input asp-for="HourReport.DateOfIssue" class="form-control" />
@@ -76,7 +68,14 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index"
+       asp-route-year="@Model.HourReport.DateOfIssue.Year"
+       asp-route-month="@Model.HourReport.DateOfIssue.Month"
+       asp-route-day="@Model.HourReport.DateOfIssue.Day"
+       asp-route-projectId="@Model.HourReport.ProjectId"
+       asp-route-individualContributorId="@Model.HourReport.IndividualContributorId">
+        Back to List
+    </a>
 </div>
 
 @section Scripts {

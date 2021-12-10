@@ -8,6 +8,7 @@ namespace ManagementPlus.ViewModels
         public Guid IndividualContributorId { get; set; }
         public Guid ProjectId { get; set; }
         [DataType(DataType.Date)]
+        [Display(Name = "Date")]
         public DateTime DateOfIssue { get; set; }
         [Required]
         [RegularExpression(@"^([1-9][0-9]*)(:[0-5][0-9])?$")]
