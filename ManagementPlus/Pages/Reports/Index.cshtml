@@ -2,6 +2,7 @@
 @model ManagementPlus.Pages.Reports.IndexModel
 @{
     ViewData["Title"] = "Reports";
+    var now = DateTime.Now;
 }
 
 <h1>Reports</h1>
@@ -9,6 +10,6 @@
 
 <ul>
     <li>
-        <a asp-page="./DailyReport">Daily Report</a>
+        <a asp-page="./DailyReport" asp-route-year="@now.Year" asp-route-month="@now.Month" asp-route-day="@now.Day">Daily Report</a>
     </li>
 </ul>
