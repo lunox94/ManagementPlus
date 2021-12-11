@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:guid}"
 @model ManagementPlus.Pages.HourReports.DeleteModel
 
 @{
@@ -9,8 +9,22 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>HourReport</h4>
+    <h4>Hour Report</h4>
     <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            Project @Html.DisplayNameFor(model => model.Project.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Project.Name)
+        </dd>
+        <dt class="col-sm-3">
+            Individual Contributor @Html.DisplayNameFor(model => model.IndividualContributor.FullName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.IndividualContributor.FullName)
+        </dd>
+    </dl>
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.HourReport.DateOfIssue)
@@ -49,10 +63,17 @@
             @Html.DisplayFor(model => model.HourReport.DiscountReason)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="HourReport.Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a asp-page="./Index"
+           asp-route-year="@Model.HourReport.DateOfIssue.Year"
+           asp-route-month="@Model.HourReport.DateOfIssue.Month"
+           asp-route-day="@Model.HourReport.DateOfIssue.Day"
+           asp-route-projectId="@Model.HourReport.ProjectId"
+           asp-route-individualContributorId="@Model.HourReport.IndividualContributorId">
+            Back to List
+        </a>
     </form>
 </div>

@@ -1,60 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using ManagementPlus.Data;
+using ManagementPlus.Models;
+using ManagementPlus.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ManagementPlus.Data;
-using ManagementPlus.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace ManagementPlus.Pages.HourReports
 {
     public class DeleteModel : PageModel
     {
-        private readonly ManagementPlus.Data.ManagementPlusContext _context;
+        private readonly ManagementPlusContext _context;
 
-        public DeleteModel(ManagementPlus.Data.ManagementPlusContext context)
+        public DeleteModel(ManagementPlusContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public HourReport HourReport { get; set; }
+        public HourReportVM HourReport { get; set; }
+        public ProjectVM Project { get; set; }
+        public IndividualContributorVM IndividualContributor { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid id, [FromServices] IMapper mapper)
         {
-            if (id == null)
+            var hourReport = await _context.HourReports
+                .Include(h => h.Assignment)
+                .ThenInclude(a => a.Project)
+                .Include(h => h.Assignment)
+                .ThenInclude(a => a.IndividualContributor)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (hourReport == null)
             {
                 return NotFound();
             }
 
-            HourReport = await _context.HourReports
-                .Include(h => h.Assignment).FirstOrDefaultAsync(m => m.Id == id);
+            HourReport = mapper.Map<HourReportVM>(hourReport);
+            Project = mapper.Map<ProjectVM>(hourReport.Assignment.Project);
+            IndividualContributor = mapper.Map<IndividualContributorVM>(hourReport.Assignment.IndividualContributor);
 
-            if (HourReport == null)
-            {
-                return NotFound();
-            }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid? id)
+        public async Task<IActionResult> OnPostAsync(Guid id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var hourReport = await _context.HourReports.FindAsync(id);
 
-            HourReport = await _context.HourReports.FindAsync(id);
-
-            if (HourReport != null)
+            if (hourReport != null)
             {
-                _context.HourReports.Remove(HourReport);
+                _context.HourReports.Remove(hourReport);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", routeValues: new
+            {
+                projectId = hourReport.ProjectId,
+                individualContributorId = hourReport.IndividualContributorId,
+                year = hourReport.DateOfIssue.Year,
+                month = hourReport.DateOfIssue.Month,
+                day = hourReport.DateOfIssue.Day
+            });
         }
     }
 }

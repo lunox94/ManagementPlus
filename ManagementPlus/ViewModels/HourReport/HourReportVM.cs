@@ -6,6 +6,8 @@ namespace ManagementPlus.ViewModels
     public class HourReportVM
     {
         public Guid Id { get; set; }
+        public Guid IndividualContributorId { get; set; }
+        public Guid ProjectId { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Date")]
         public DateTime DateOfIssue { get; set; }
