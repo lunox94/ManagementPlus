@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
+using ManagementPlus.Extensions;
 using AutoMapper;
 using ManagementPlus.Data;
 using ManagementPlus.Models;
@@ -58,10 +58,18 @@ namespace ManagementPlus.Pages.Reports
                 .ThenInclude(a => a.IndividualContributor)
                 .ToLookup(r => r.ProjectId);
 
-            return groupByProjects.Select(g => new DailyReportGroupVM
+            return groupByProjects.Select(g => 
             {
-                Project = _mapper.Map<ProjectVM>(g.First().Assignment.Project),
-                Items = GetGroupItems(g).ToList()
+                var items = GetGroupItems(g).ToList();
+
+                return new DailyReportGroupVM
+                {
+                    Project = _mapper.Map<ProjectVM>(g.First().Assignment.Project),
+                    Items = items,
+                    TotalWorked = items.Sum(i => i.Worked),
+                    TotalReport = items.Sum(i => i.Report),
+                    TotalDiscount = items.Sum(i => i.Discount)
+                };
             });
         }
 
@@ -70,17 +78,14 @@ namespace ManagementPlus.Pages.Reports
             var groupByICs = group
                 .GroupBy(r => r.IndividualContributorId);
 
-            var items = groupByICs.Select(g => new DailyReportItemVM
+            return groupByICs.Select(g => new DailyReportItemVM
             {
                 Developer = g.First().Assignment.IndividualContributor.FullName,
                 Report = g.Sum(r => r.ReportedTime),
-                Discount = g.Sum(r => r.DiscountTime),
+                Discount = g.Sum(r => r.ReportedTime),
+                Worked = g.Sum(r => r.ReportedTime),
                 Reason = g.FirstOrDefault(r => !string.IsNullOrWhiteSpace(r.DiscountReason))?.DiscountReason
             }).ToList();
-
-            items.ForEach(i => i.Worked = i.Report + i.Discount);
-
-            return items;
         }
     }
 }

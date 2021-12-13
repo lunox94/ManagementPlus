@@ -67,13 +67,13 @@
                     </td>
                     <td></td>
                     <td>
-                        @ic.Worked.ToStringFromTimeSpanTicks()
+                        @Html.DisplayFor(modelItem => ic.Worked)
                     </td>
                     <td>
-                        @ic.Report.ToStringFromTimeSpanTicks()
+                        @Html.DisplayFor(modelItem => ic.Report)
                     </td>
                     <td>
-                        @ic.Discount.ToStringFromTimeSpanTicks()
+                        @Html.DisplayFor(modelItem => ic.Discount)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => ic.Reason)
@@ -86,13 +86,13 @@
                     Total @Html.DisplayFor(modelItem => project.Project.Name)
                 </td>
                 <td>
-                    @project.Items.Sum(i => i.Worked).ToStringFromTimeSpanTicks()
+                    @Html.DisplayFor(modelItem => project.TotalWorked)
                 </td>
                 <td>
-                    @project.Items.Sum(i => i.Report).ToStringFromTimeSpanTicks()
+                    @Html.DisplayFor(modelItem => project.TotalReport)
                 </td>
                 <td>
-                    @project.Items.Sum(i => i.Discount).ToStringFromTimeSpanTicks()
+                    @Html.DisplayFor(modelItem => project.TotalDiscount)
                 </td>
                 <td></td>
             </tr>
